@@ -108,7 +108,8 @@ plt.show()
 
 real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs) + 1, 0]]
 read_data = np.array(real_data)
-real_data = np.reshape(read_data, (real_data.shape[0], real_data.shape[1], 1))
+#edited below because of wrong varnames.
+real_data = np.reshape(read_data, (read_data.shape[0], read_data.shape[1], 1))
 
 prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
