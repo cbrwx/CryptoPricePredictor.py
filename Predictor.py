@@ -92,24 +92,40 @@ for x in range(prediction_days, len(model_inputs)):
 x_test = np.array(x_test)
 x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 
-#Predicts the prices using the model
+#predicts the prices usins the model
 prediction_prices = model.predict(x_test)
 prediction_prices = scaler.inverse_transform(prediction_prices)
 
-#Plots them on a graph
+#plot the graph
 plt.plot(actual_prices, color="black", label="Actual Prices")
 plt.plot(prediction_prices, color="green", label="Predicited Prices")
+
+#plt.plot(prediction, color="red", label="Prediciting Prices")
+
+plt.title(f"{crypto_currency} Price Prediction")
+plt.xlabel("Time")
+plt.ylabel("Price")
+plt.show()
+#print( repr(prediction))
+
+#Predict next day
+
+real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs) + 1, 0]]
+#real_data = [model_inputs[len(model_inputs)-prediction_days:len(model_inputs), 0]]
+read_data = np.array(real_data)
+real_data = np.reshape(read_data, (read_data.shape[0], read_data.shape[1], 1))
+
+
+#prediction = model.predict(img[None, ...])
+prediction = model.predict(real_data[0])
+prediction = scaler.inverse_transform(prediction)
+
+plt.plot(prediction, color="green", label="Predicited Prices")
 plt.title(f"{crypto_currency} Price Prediction")
 plt.xlabel("Time")
 plt.ylabel("Price")
 plt.show()
 
-#Predict next day
+#print( repr(prediction))
 
-real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs) + 1, 0]]
-read_data = np.array(real_data)
-real_data = np.reshape(read_data, (real_data.shape[0], real_data.shape[1], 1))
 
-prediction = model.predict(real_data)
-prediction = scaler.inverse_transform(prediction)
-print()
